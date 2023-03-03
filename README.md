@@ -5,6 +5,7 @@ We explore the efficacy of multimodal behavioral cues for explainable prediction
 
 ## Framework Overview:
 ![framework_overview](https://user-images.githubusercontent.com/79365852/222646735-01cce1ca-7b8c-4191-a8df-1848e83a4c58.jpg)
+*Overview of the proposed framework: Kinemes (elementary head motions), action units (atomic facial movements) and speech features employed for explainable trait prediction*
 
 ## Implementation Details:
 **Preprocessing** -- We've used openface(https://github.com/TadasBaltrusaitis/OpenFace) to extract pose angles and action units for kineme and AU generation. For audio feature generation, we've used Librosa(https://librosa.org/doc/latest/index.html) python package.
