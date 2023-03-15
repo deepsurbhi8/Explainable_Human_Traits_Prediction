@@ -205,15 +205,15 @@ def chunks_formation_test(file_path, chunk_time, size_of_feature_set,scaler,num_
 
 
 
-#model for the feature fusion
+# model for the feature fusion
 callback = tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=3)
-#left input LSTM
+# left input LSTM
 kineme_branch_input = Input(shape=(seqLen, nKineme), name="kineme_input")
 kineme_branch_output = LSTM(nNeuron, activation = 'tanh')(kineme_branch_input)
-#right input LSTM
+# right input LSTM
 audio_branch_input = Input(shape=(seqLen, nAudio), name='audio_input')
 audio_branch_output = LSTM(nNeuron, activation = 'tanh')(audio_branch_input)
-#Merging all layers
+# Merging all layers
 merged_layer = concatenate([kineme_branch_output, audio_branch_output], name='concatenate')
 final_model_output = Dense(nClass, activation = 'sigmoid')(merged_layer)
 final_model = Model(inputs=[kineme_branch_input, audio_branch_input], outputs=final_model_output, name='Final_output')
@@ -221,8 +221,7 @@ opt = keras.optimizers.Adam(learning_rate=0.01)
 final_model.compile(optimizer = opt, loss = 'binary_crossentropy',metrics=['accuracy'])
 final_model.summary()
 
-#path to all the kineme files
-# path for implementation on other systems
+# path to all the kineme files
 file_list = sorted(glob.glob('/content/drive/MyDrive/Data/AU_10fps/*.csv'))
 label_data = pd.read_csv('/content/drive/MyDrive/Data/labels_for_MIT.csv')
 label = label_data[label_name]
@@ -230,9 +229,8 @@ f = np.array(file_list).reshape(-1,1) #All data files
 label = pd.to_numeric(label, downcast='integer') #Float to integer conversion
 label = label.to_numpy().reshape(-1,1)  
 file_to_work = np.concatenate((f, label),axis=1)   #File plus label in single array
-# file_to_work = file_to_work[0:10,:]
 
-#define lists for saving the results
+# define lists for saving the results
 test_loss=[]
 test_acc=[]
 train_loss = []
@@ -242,8 +240,8 @@ fi_macro=[]
 val_loss = []
 val_acc = []
 
-#count for counting the number of iterations
-#file_to_work contains all files to be divided into train and test data for each of the splits of validation
+# count for counting the number of iterations
+# file_to_work contains all files to be divided into train and test data for each of the splits of validation
 count = 1
 random_state = 42
 rkf = RepeatedKFold(n_splits=10, n_repeats=5, random_state=random_state)      #repeat kfold function
