@@ -328,12 +328,10 @@ for train_idx, test_idx in rkf.split(file_to_work):
             total_size = chun_ki
         l = label[0]
         kin_res2 = data_preprocess_test(chunk_size,Kin2,total_size)
-        # au_res2 = max_encoding(AU2,1.5,chunk_size,total_size)
         audio_res2 = chunks_formation_test(Audio_path, chunk_time, 23,scaler,total_size)
 
         #make array of results
         kin_res2 = np.array(kin_res2)
-
         test_kinemes = ks_encoding(kin_res2, nKineme)
         test_audio = audio_res2.reshape((audio_res2.shape[0], seqLen, nAudio))
         y_pred = final_model.predict([test_kinemes,  test_audio])
