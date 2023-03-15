@@ -10,7 +10,7 @@ We explore the efficacy of multimodal behavioral cues for explainable prediction
 ## Implementation Details:
 **Preprocessing** -- We've used [Openface](https://github.com/TadasBaltrusaitis/OpenFace) to extract pose angles and action units for kineme and AU generation. For audio feature generation, we've used [Librosa](https://librosa.org/doc/latest/index.html) python package.
 
-**Model Architecture** -- We've done Chunk level and video level analysis for both the datasets MIT and FICS. For more details, please refer to paper.
+**Model Architecture** -- We've done Chunk level and video level analysis for both the datasets MIT and FICS. For more details, please refer to the paper.
 
 ## Related Links:
 [Paper Link](https://arxiv.org/pdf/2302.09817v2.pdf)
