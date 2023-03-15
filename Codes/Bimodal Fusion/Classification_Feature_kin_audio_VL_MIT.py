@@ -33,7 +33,7 @@ seqLen = chunk_size-1
 nKineme, nClass = 16, 1
 nAction, nAudio = 17, 23
 threshold_action_units = 1.5
-EPOCHS, BATCH_SIZE = 30, 32
+epochs_par, batch_size_par = 30, 32
 nNeuron = 12
 chunk_time = chunk_size
 
@@ -262,7 +262,7 @@ for train_idx, test_idx in rkf.split(file_to_work):
     AU1 = pd.read_csv(AU_path)
     Kin1 = pd.read_csv(Kine_Path, header=None)
     label = labels[0]
-    chun_au = int(AU1.shape[0]/(chunk_size*10)) #10 is because we are taking 10fps and for every 10 value we will need one row
+    chun_au = int(AU1.shape[0]/(chunk_size*10))
     chun_ki = int(Kin1.shape[1]/(chunk_size))
     if chun_au<chun_ki:
         total_size = chun_au
@@ -303,7 +303,7 @@ for train_idx, test_idx in rkf.split(file_to_work):
     train_labels = np.array(final_label)
     train_kinemes = ks_encoding(kin_res1, nKineme)
     train_audio = final_audio.reshape((final_audio.shape[0], seqLen, nAudio))
-    zero_bias_history = final_model.fit([train_kinemes, train_audio], train_labels, epochs = EPOCHS, batch_size = BATCH_SIZE, validation_split = 0.1,callbacks=[callback])
+    zero_bias_history = final_model.fit([train_kinemes, train_audio], train_labels, epochs = epochs_par, batch_size = batch_size_par, validation_split = 0.1,callbacks=[callback])
     
 
     #Process for testing
