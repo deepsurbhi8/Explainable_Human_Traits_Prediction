@@ -374,20 +374,10 @@ def training_lstm_video(label_name, seq_length):
         fi_weighted.append(f1_w_epoch)
         fi_macro.append(f1_m_epoch)
         print('F1 score weighted: {0} and macro: {1}'.format(f1_w_epoch, f1_m_epoch))         
-        # y = np.array(test_labels).reshape(-1,1)
-        # a = np.corrcoef(y.T,np.array(y_pred_video).T)
-        # test_PCC.append(a[0][1])
-        # y_pred_train = final_model.predict([train_kinemes, train_aus])
-        # y_pred_train = np.around(y_pred_train,2)
-        # train_mse.append(1-mean_absolute_error(train_labels, y_pred_train)) ##mean squarred train error
-        # print(train_mse)
-        # y_train = train_labels.reshape(-1,1)
-        # b = np.corrcoef(y_train.T,y_pred_train.T)
-        # train_PCC.append(b[0][1])
         print(n)
         n = n+1
 
-    #print("For 1 layer lstm(relu function) with 0.1 dropout with 50 neurons and 15 sec data (Adam 0.01): on O")
+    
     print("For: " + str(label_name) + " with chunk_size: " + str(seq_length))
     print("Train_accuracy {0}±{1}".format(round(np.array(train_acc).mean(),3),round(np.array(train_acc).std(),3)))
     print("Test_accuracy {0}±{1}".format(round(np.array(test_acc).mean(),3),round(np.array(test_acc).std(),3)))
@@ -403,29 +393,5 @@ training_lstm_video("Excited", 14)
 training_lstm_video("RecommendHiring", 14)
 training_lstm_video("EyeContact", 14)
 training_lstm_video("Friendly", 14)
-# training_lstm_video("Overall", 9)
-# training_lstm_video("Excited", 9)
-# training_lstm_video("RecommendHiring", 9)
-# training_lstm_video("EyeContact", 9)
-# training_lstm_video("Friendly", 9)
-# training_lstm_video("Overall", 4)
-# training_lstm_video("Excited", 4)
-# training_lstm_video("RecommendHiring", 4)
-# training_lstm_video("EyeContact", 4)
-# training_lstm_video("Friendly", 4)
 
-
-# In[8]:
-
-
-training_lstm_video("Overall", 9)
-training_lstm_video("Excited", 9)
-training_lstm_video("RecommendHiring", 9)
-training_lstm_video("EyeContact", 9)
-training_lstm_video("Friendly", 9)
-training_lstm_video("Overall", 4)
-training_lstm_video("Excited", 4)
-training_lstm_video("RecommendHiring", 4)
-training_lstm_video("EyeContact", 4)
-training_lstm_video("Friendly", 4)
 
