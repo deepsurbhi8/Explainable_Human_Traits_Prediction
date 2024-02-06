@@ -1,9 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[3]:
-
-
 #import required modules
 #basic
 import numpy as np
@@ -83,10 +77,6 @@ def bin_labels(data_rec):
     print(count_0, count_1)
     return data_rec  
 
-
-# In[1]:
-
-
 #define path for the training, testing and validation labels and data for the label Opneness of the FICS dataset
 y_train_path = 'Kinemes/train_O.npy'
 X_train_path = 'Kinemes/train_kineme_5990.npy'
@@ -129,7 +119,7 @@ def training_lstm(y_train_path, X_train_path, y_test_path, X_test_path, y_val_pa
     #Model architecture with different layers
 
     #Using two different lstm layers for the kineme and action unit data separately and concatenating them at the end
-    #kineme lstm implementation; input is the encoding of kineme sequence of 16 and 14 is teh time step for each file; sequence of kinemes from each file
+    #kineme lstm implementation; input is the encoding of kineme sequence of 16 and 14 is the time step for each file; sequence of kinemes from each file
     #we provide the input shape to a lstm layer with activation
     left_branch_input = Input(shape=(seqLen,nKineme), name='Left_input')
     left_branch_output = LSTM(32, activation='relu')(left_branch_input)
