@@ -1,11 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# ## **Importing Libraries**
-
-# In[2]:
-
-
 #import required modules
 #basic
 import numpy as np
@@ -47,12 +39,6 @@ from keras.layers import Dropout
 from keras.models import Model
 from keras.layers import Input, Dense, concatenate
 
-
-# File Paths
-
-# In[16]:
-
-
 #function to convert continous labels into binary labels
 def bin_labels(data_rec):             
     count_0 = 0
@@ -70,31 +56,6 @@ def bin_labels(data_rec):
 
 
 # ## **LSTM Parameters**
-
-# In[15]:
-
-
-# #finding the class division -- to find the number of rows belonging to each data class and the median for each label
-
-# y_train_path = 'Kinemes/train_O.npy'
-# X_train_path = 'Kinemes/train_kineme_5990.npy'
-# y_test_path = 'Kinemes/test_O.npy'
-# X_test_path = 'Kinemes/test_kineme_1997.npy'
-# y_val_path = 'Kinemes/val_O.npy'
-# X_val_path = 'Kinemes/val_kineme_1995.npy'
-# print("Neuroticism")
-# y_train = np.load(y_train_path)
-# y_train = y_train[:,1].astype(np.float)
-# y_train = bin_labels(y_train)
-# train_mat = np.load(X_train_path)
-# y_test = np.load(y_test_path)
-# y_test = y_test[:,1].astype(np.float)
-# y_test = bin_labels(y_test)
-# test_mat = np.load(X_test_path)
-# y_val = np.load(y_val_path)
-# y_val = y_val[:,1].astype(np.float)
-# y_val = bin_labels(y_val)
-# val_mat = np.load(X_val_path)
 
 
 # In[17]:
@@ -154,7 +115,7 @@ def training_lstm(y_train_path, X_train_path, y_test_path, X_test_path, y_val_pa
     Model.add(Dense(units = nClass,activation="sigmoid"))
     opt = keras.optimizers.Adam(learning_rate=0.01)
 
-    Model.compile(optimizer = opt, loss = 'categorical_crossentropy',metrics=['accuracy'])
+    Model.compile(optimizer = opt, loss = 'binary_crossentropy',metrics=['accuracy'])
     Model.summary()
 
 
@@ -168,12 +129,6 @@ def training_lstm(y_train_path, X_train_path, y_test_path, X_test_path, y_val_pa
     val_loss = []
     val_acc = []
 
-    #train test split is not required as we have an already defined(fixed) train, test and validation split
-#     random_state = 42
-#     rkf = RepeatedKFold(n_splits=10, n_repeats=5, random_state=random_state)      #repeat kfold function
-#     for train_idx, test_idx in rkf.split(X_data):
-#         train_features, test_features, train_labels, test_labels = X_data[train_idx], X_data[test_idx], y_data[train_idx], y_data[test_idx] 
-    
     train_features,  train_labels = train_mat, y_train
     test_features,  test_labels = test_mat, y_test
     val_features,  val_labels = val_mat, y_val
@@ -188,20 +143,15 @@ def training_lstm(y_train_path, X_train_path, y_test_path, X_test_path, y_val_pa
     # convert labels into categorical
     train_labels = to_categorical(train_labels)   
     val_labels = to_categorical(val_labels)  
-    #train_features, val_data, train_labels, val_test = train_test_split(train_features, train_labels, test_size=0.2, random_state=42)
     zero_bias_history = Model.fit(train_action, train_labels, epochs = EPOCHS, batch_size = 32, validation_data=(val_action, val_labels), callbacks=[callback]) 
     score = Model.evaluate(test_action, to_categorical(test_labels), verbose=0)
     print('Test loss:', score[0])
     print('Test accuracy:', score[1])
     test_loss.append(score[0])
     test_acc.append(score[1])
-    #trai_loss.append(zero_bias_history.history['loss'][9])
     train_acc.append(np.array(zero_bias_history.history['accuracy']).mean())
     val_acc.append(np.array(zero_bias_history.history['val_accuracy']).mean())
-    #va_loss.append(zero_bias_history.history['val_loss'][9])
-    #val_acc.append(zero_bias_history.history['val_accuracy'][9])
     y_testpred = Model.predict_classes(test_action)
-#     y_testclass = np.argmax(test_labels,axis=-1)
     f1_w_epoch = f1_score(test_labels, y_testpred, average='weighted')
     f1_m_epoch = f1_score(test_labels, y_testpred, average='macro')
     fi_weighted.append(f1_w_epoch)
