@@ -178,13 +178,12 @@ from collections import Counter
 
 #function to return the majority from a list of labels
 def majority_vote(arr):
-  freqDict = Counter(arr)
-  size = len(arr)
-  for (key, val) in freqDict.items():
-    if (val > (size/2)):
-      return key
-    else:
-      return np.random.randint(2)
+  vote_count = Counter(arr)
+    top_two = vote_count.most_common(2)
+    if len(top_two)>1 and top_two[0][1] == top_two[1][1]:
+        # It is a tie
+        return np.random.randint(2)
+    return top_two[0][0]
 
 #function to convert continous labels into binary labels
 def bin_labels(data_rec):             
