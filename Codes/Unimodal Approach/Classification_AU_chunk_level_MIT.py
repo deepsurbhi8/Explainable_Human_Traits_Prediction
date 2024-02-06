@@ -1,10 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# ## **Importing Libraries**
-
-# In[6]:
-
 
 #import required modules
 #basic
@@ -47,12 +40,6 @@ from keras.layers import Dropout
 from keras.models import Model
 from keras.layers import Input, Dense, concatenate
 
-
-# File Paths
-
-# In[8]:
-
-
 #function to convert continous labels into binary labels
 def bin_labels(data_rec):             
     count_0 = 0
@@ -68,12 +55,6 @@ def bin_labels(data_rec):
     print(count_0, count_1)
     return data_rec  
 
-
-# ## **LSTM Parameters**
-
-# In[49]:
-
-
 #define the data and label file path for each label
 y_data_path = 'MIT/Chunk_level/Label_60_Overall.npy'
 X_data_path = 'MIT/Chunk_level/Data_60_Overall_new.npy'
@@ -81,18 +62,6 @@ training_lstm(y_data_path, X_data_path, "Overall")
 y_data_path = 'MIT/Chunk_level/Label_60_Excited.npy'
 X_data_path = 'MIT/Chunk_level/Data_60_Excited.npy'
 training_lstm(y_data_path, X_data_path, "Excited")
-y_data_path = 'MIT/Chunk_level/Label_60_RecommendHiring.npy'
-X_data_path = 'MIT/Chunk_level/Data_60_RecommendHiring.npy'
-training_lstm(y_data_path, X_data_path, "RecommendHiring")
-y_data_path = 'MIT/Chunk_level/Label_60_EyeContact.npy'
-X_data_path = 'MIT/Chunk_level/Data_60_EyeContact.npy'
-training_lstm(y_data_path, X_data_path, "EyeContact")
-y_data_path = 'MIT/Chunk_level/Label_60_Friendly.npy'
-X_data_path = 'MIT/Chunk_level/Data_60_Friendly.npy'
-training_lstm(y_data_path, X_data_path, "Friendly")
-
-
-# In[47]:
 
 
 def training_lstm(y_data_path, X_data_path, Label_class):
@@ -148,20 +117,15 @@ def training_lstm(y_data_path, X_data_path, Label_class):
         test_action = test_action.reshape((test_action.shape[0], seqLen, nAction))
         # convert labels into categorical
         train_labels = to_categorical(train_labels)   
-        #train_features, val_data, train_labels, val_test = train_test_split(train_features, train_labels, test_size=0.2, random_state=42)
         zero_bias_history = Model.fit(train_action, train_labels, epochs = EPOCHS, batch_size = 32, validation_split=0.1, callbacks=[callback]) 
         score = Model.evaluate(test_action, to_categorical(test_labels), verbose=0)
         print('Test loss:', score[0])
         print('Test accuracy:', score[1])
         test_loss.append(score[0])
         test_acc.append(score[1])
-        #trai_loss.append(zero_bias_history.history['loss'][9])
         train_acc.append(np.array(zero_bias_history.history['accuracy']).mean())
         val_acc.append(np.array(zero_bias_history.history['val_accuracy']).mean())
-        #va_loss.append(zero_bias_history.history['val_loss'][9])
-        #val_acc.append(zero_bias_history.history['val_accuracy'][9])
         y_testpred = Model.predict_classes(test_action)
-    #     y_testclass = np.argmax(test_labels,axis=-1)
         f1_w_epoch = f1_score(test_labels, y_testpred, average='weighted')
         f1_m_epoch = f1_score(test_labels, y_testpred, average='macro')
         fi_weighted.append(f1_w_epoch)
