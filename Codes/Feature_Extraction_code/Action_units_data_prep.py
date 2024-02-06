@@ -1,4 +1,8 @@
-#Function to create AU Data Matrix
+#Function to create AU Data Matrix based on openface extracted files
+# imput_file_au - openface csv file
+# threshold - experimented threshold for considering the presence of each AU
+# chunk_size - chunk size considered for the analysis
+# total_chunks - number of chunks present in this entire video file
 def max_encoding(input_file_au,threshold,chunk_size,total_chunks):
   count = 0
   duration = 0
@@ -6,15 +10,16 @@ def max_encoding(input_file_au,threshold,chunk_size,total_chunks):
   complete_vec = []
   intensity_var = threshold  
   read_data = np.array(input_file_au) 
-  for c in range(0,total_chunks,1):           #total_chunks= 10 , c= 0 
+  for c in range(0,total_chunks,1):           
       #print("Value of total chunks")
       #print(c)
       vector = []
-      #print(c)
-      for j in range(0, chunk_size-1, 1): #0 1 2 0 20 10 30 20 40
+      for j in range(0, chunk_size-1, 1): 
          #print(j)
          max_pool = [] 
+        # loop to traverse over all the AUs considered
          for i in range(5, 22, 1):
+             # considering threshold over 2s of data
              max_value = np.max(read_data[duration:duration+20, i])
              #print("max value in this column")
              #print(max_value, i)
