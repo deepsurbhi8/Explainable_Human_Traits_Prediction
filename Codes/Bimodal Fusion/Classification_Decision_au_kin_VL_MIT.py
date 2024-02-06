@@ -1,9 +1,4 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[1]:
-
-
+# imports
 import pandas as pd
 import glob
 import os
@@ -41,10 +36,6 @@ from keras.models import Sequential
 from keras.layers import Dense
 from keras.layers import LSTM
 from keras.layers import Dropout
-
-
-# In[2]:
-
 
 #Function to create kineme data matrix
 def data_preprocess(chunk_time, input_file_kineme, label_val,num_chunk): 
@@ -160,13 +151,12 @@ from collections import Counter
 
 #function to return the majority from a list of labels
 def majority_vote(arr):
-    freqDict = Counter(arr)
-    size = len(arr)
-    for (key, val) in freqDict.items():
-        if (val > (size/2)):
-            return key
-        else:
-            return np.random.randint(2)
+    vote_count = Counter(arr)
+    top_two = vote_count.most_common(2)
+    if len(top_two)>1 and top_two[0][1] == top_two[1][1]:
+        # It is a tie
+        return np.random.randint(2)
+    return top_two[0][0]
 
 #function to convert continous labels into binary labels
 def bin_labels(data_rec):             
@@ -180,16 +170,10 @@ def bin_labels(data_rec):
         else:
             count_1 += 1
             data_rec[it]=1
-#     print(count_0, count_1)
     return data_rec  
-
-
-# In[3]:
-
 
 #pass on the label name, sequence length and weight used in fusion
 def training_lstm_video(label_name, seq_length, weight):
-    #load y_data, convert to float and then convert the values to categorical labels as 0 or 1
     #path to all the kineme files
     file_list = sorted(glob.glob('Video_level/AU_10fps/*.csv'))
     label_data = pd.read_csv('Video_level/labels_traits_minmax_norm.csv')
@@ -201,7 +185,7 @@ def training_lstm_video(label_name, seq_length, weight):
     file_to_work = np.concatenate((f, label),axis=1)   #File plus label in single array
 
 
-    # parameters
+    # model parameters
     nKineme, seqLen, nClass = 16, seq_length, 1
     EPOCHS = 30
     BATCH_SIZE = 32
@@ -263,7 +247,6 @@ def training_lstm_video(label_name, seq_length, weight):
         else:
             total_size = chun_ki
     #for AU directly put chunk size as total size from the chun_au
-
         #Calling of functions
         kin_res1,label1 = data_preprocess(chunk_size,Kin1,label,total_size)
         au_res1 = max_encoding(AU1,1.5,chunk_size,total_size)
@@ -296,7 +279,6 @@ def training_lstm_video(label_name, seq_length, weight):
             kin_res1 = np.vstack((kin_res1,kin_res2))
             au_res1 = np.vstack((au_res1,au_res2))
             label1.extend(label2)
-        # final = np.concatenate((kin_res1.T, au_res1.T)).T
         final = np.concatenate((kin_res1.T, au_res1.T)).T
         final_label = np.array(label1)
         final_label = [float(i) for i in final_label]   #String to int conversion
@@ -315,7 +297,6 @@ def training_lstm_video(label_name, seq_length, weight):
         
         
         #Process for testing in case of video analysis
-        #get the test labels and convert each label to 0 or 1
         test_data = test_features[:,0].tolist()  #test data
         test_labels = test_features[:,1]  #test actual label
         test_labels = [float(i) for i in test_labels]   #String to int conversion
@@ -354,10 +335,7 @@ def training_lstm_video(label_name, seq_length, weight):
             y_pred_aus = Model_AU.predict(test_aus)
             final_test_pred = (weight*y_pred_kineme) + ((1-weight)* y_pred_aus)
             y_pred = ((final_test_pred > 0.5)+0).ravel()
-            y1 = majority_vote(y_pred)   #Voting for classification to change
-#             y_pred = Model.predict(test_kinemes)
-#             y_pred = y_pred.argmax(axis=-1)
-#             y1 = majority_vote(y_pred)   #Voting for classification to change
+            y1 = majority_vote(y_pred)   #Voting for classification 
             y_pred_video.append(y1)
 
         #append the values to train and test accuracy
@@ -376,11 +354,8 @@ def training_lstm_video(label_name, seq_length, weight):
     return np.asarray(train_acc), np.asarray(test_acc), np.asarray(fi_weighted), np.asarray(fi_macro)
 
 
-# In[4]:
-
-
-y_data_path = 'Chunk_level/Label_5_Overall.npy'
-X_data_path = 'Chunk_level/Data_5_Overall.npy'
+y_data_path = 'Chunk_level/Label_60_Overall.npy'
+X_data_path = 'Chunk_level/Data_60_Overall.npy'
 
 #create a weight matrix and define the accuracy adn f1 score lists
 weight_matrix = np.arange(0.0, 1.01, 0.1)
@@ -418,6 +393,6 @@ Fusion_accuracies = pd.DataFrame(list(zip(weight_list, train_acc_list, train_acc
                             'Training accuracy', 'Train std', 'Testing accuracy', 'Test std', 'F1 weighted', 'F1 weighted std', 'F1 Macro', 'F1 macro std'])
 
 
-Fusion_accuracies.to_csv("DataFrames_Video/Overall_5.csv", index = False)
+Fusion_accuracies.to_csv("DataFrames_Video/Overall_60.csv", index = False)
 Fusion_accuracies
 
