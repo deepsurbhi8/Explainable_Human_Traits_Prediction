@@ -86,7 +86,7 @@ def majority_vote(arr):
     top_two = vote_count.most_common(2)
     if len(top_two)>1 and top_two[0][1] == top_two[1][1]:
         # It is a tie
-        return 0
+        return np.random.randint(2)
     return top_two[0][0]
 
 #function to convert continous labels into binary labels
