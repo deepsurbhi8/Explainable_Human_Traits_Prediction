@@ -1,9 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[1]:
-
-
 #import required modules
 #basic
 import numpy as np
@@ -44,9 +38,6 @@ from keras.layers import LSTM
 from keras.layers import Dropout
 from keras.models import Model
 from keras.layers import Input, Dense, concatenate
-
-
-# In[2]:
 
 
 #function to convert continous labels into binary labels
@@ -113,7 +104,7 @@ def training_lstm(y_data_path, X_data_path, Label_class, sl, w):
     callback = tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=3)
     Model_kineme = Sequential()
 
-    Model_kineme.add(LSTM(nNeuron,activation="tanh",dropout=0.15,input_shape=(seqLen, nKineme)))
+    Model_kineme.add(LSTM(nNeuron,activation="tanh",dropout=0.1,input_shape=(seqLen, nKineme)))
 
     Model_kineme.add(Dense(units = nClass,activation="sigmoid"))
     opt = keras.optimizers.Adam(learning_rate=0.01)
@@ -222,10 +213,6 @@ Fusion_accuraciesO_1 = pd.DataFrame(list(zip(weight_list, train_acc_list, train_
 
 Fusion_accuraciesO_1.to_csv("DataFrames/Overall60_1.csv", index = False)
 Fusion_accuraciesO_1
-
-
-# In[5]:
-
 
 y_data_path = 'Chunk_level/Label_60_Overall.npy'
 X_data_path = 'Chunk_level/Data_60_Overall_new.npy'
