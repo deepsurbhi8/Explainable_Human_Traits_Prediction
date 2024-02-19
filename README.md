@@ -15,6 +15,7 @@ We explore the efficacy of multimodal behavioral cues for explainable prediction
 **Requirements** -- This code was tested on Python 3.8, Tensorflow 2.7 and Keras 2.7. It is recommended to use the appropraite versions of each library to implement the code.
 
 ## Repository Structure:
+<code>
 ├── README.md    
 ├── Architectures           
 │   ├── Attention_fusion_figure.pdf      # Additive attention fusion architecture overview
@@ -39,7 +40,7 @@ We explore the efficacy of multimodal behavioral cues for explainable prediction
 │   │   ├── MIT_kineme_features.zip   # Kineme representation for the head pose values over the MIT dataset
 ├── Presentation         
 │   ├── Explainable_Human_Traits_Prediction.pdf        
-
+</code>
 
 ## Related Links:
 [Paper Link](https://arxiv.org/pdf/2302.09817v2.pdf)
