@@ -33,9 +33,9 @@ We explore the efficacy of multimodal behavioral cues for explainable prediction
 │   ├── Unimodal Approach                # Single modality code implementation over the two datasets
 ├── Data         
 │   ├── FICS_dataset                  # Bimodal implementation of different combination of features (AU, Kineme and Audio features)        
-│   │   ├── FICS_test_files.zip       # Features (Action Unit, Kineme and Audio) extracted over the test set of FICS dataset
-│   │   ├── FICS_train_files.zip      # Features (Action Unit, Kineme and Audio) extracted over the train set of FICS dataset
-│   │   ├── FICS_val_files.zip        # Features (Action Unit, Kineme and Audio) extracted over the validation set of FICS dataset
+│   │   ├── FICS_test_files.zip       # All features (Action Unit, Kineme and Audio) over the test set of FICS dataset
+│   │   ├── FICS_train_files.zip      # All features over the train set of FICS dataset
+│   │   ├── FICS_val_files.zip        # All features for the validation set of FICS dataset
 │   ├── MIT_dataset    
 │   │   ├── MIT_AU_features.zip       # Action Unit features extracted over all files of the MIT dataset
 │   │   ├── MIT_kineme_features.zip   # Kineme representation for the head pose values over the MIT dataset
