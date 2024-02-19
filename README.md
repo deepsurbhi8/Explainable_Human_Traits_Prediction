@@ -15,31 +15,30 @@ We explore the efficacy of multimodal behavioral cues for explainable prediction
 **Requirements** -- This code was tested on Python 3.8, Tensorflow 2.7 and Keras 2.7. It is recommended to use the appropraite versions of each library to implement the code.
 
 ## Repository Structure:
- .
-    ├── README.md    
-    ├── Architectures           
-    │   ├── Attention_fusion_figure.pdf      # Additive attention fusion architecture overview
-    │   ├── Framework_overview.pdf           # Overview of the proposed framework
-    │   └── LSTM_arch.pdf                    # Trimodal feature fusion architecture
-    ├── Codes         
-    │   ├── Bimodal Fusion                   # Bimodal implementation of different combination of features (AU, Kineme and Audio features)        
-    │   │   ├── Classification_Feature_au_kin_VL_MIT.py  # (Eg: contains the code to implement video-level classification appraoch over the MIT dataset using AU and Kineme features using Feature-level fusion)
-    │   ├── Feature Extraction               
-    │   │   ├── Action_units_data_prep.py    # Code to create Action Unit data matrix from the openface extracted au files
-    │   │   ├── Audio_chunk_formation.py     # Code to create chunks from the Audio data matrix 
-    │   │   ├── Kineme_data_prep.py          # Code to create kineme feature data matrix for train and test set files
-    │   ├── Trimodal Fusion                  # Different approaches (Decision, Feature and Attention-based fusion) of the three modalities (AU, Kineme, Audio features)
-    │   ├── Unimodal Approach                # Single modality code implementation over the two datasets
-    ├── Data         
-    │   ├── FICS_dataset                  # Bimodal implementation of different combination of features (AU, Kineme and Audio features)        
-    │   │   ├── FICS_test_files.zip       # Features (Action Unit, Kineme and Audio) extracted over the test set of FICS dataset
-    │   │   ├── FICS_train_files.zip      # Features (Action Unit, Kineme and Audio) extracted over the train set of FICS dataset
-    │   │   ├── FICS_val_files.zip        # Features (Action Unit, Kineme and Audio) extracted over the validation set of FICS dataset
-    │   ├── MIT_dataset    
-    │   │   ├── MIT_AU_features.zip       # Action Unit features extracted over all files of the MIT dataset
-    │   │   ├── MIT_kineme_features.zip   # Kineme representation for the head pose values over the MIT dataset
-    ├── Presentation         
-    │   ├── Explainable_Human_Traits_Prediction.pdf        
+├── README.md    
+├── Architectures           
+│   ├── Attention_fusion_figure.pdf      # Additive attention fusion architecture overview
+│   ├── Framework_overview.pdf           # Overview of the proposed framework
+│   └── LSTM_arch.pdf                    # Trimodal feature fusion architecture
+├── Codes         
+│   ├── Bimodal Fusion                   # Bimodal implementation of different combination of features (AU, Kineme and Audio features)        
+│   │   ├── Classification_Feature_au_kin_VL_MIT.py  # (Eg: contains the code to implement video-level classification appraoch over the MIT dataset using AU and Kineme features using Feature-level fusion)
+│   ├── Feature Extraction               
+│   │   ├── Action_units_data_prep.py    # Code to create Action Unit data matrix from the openface extracted au files
+│   │   ├── Audio_chunk_formation.py     # Code to create chunks from the Audio data matrix 
+│   │   ├── Kineme_data_prep.py          # Code to create kineme feature data matrix for train and test set files
+│   ├── Trimodal Fusion                  # Different approaches (Decision, Feature and Attention-based fusion) of the three modalities (AU, Kineme, Audio features)
+│   ├── Unimodal Approach                # Single modality code implementation over the two datasets
+├── Data         
+│   ├── FICS_dataset                  # Bimodal implementation of different combination of features (AU, Kineme and Audio features)        
+│   │   ├── FICS_test_files.zip       # Features (Action Unit, Kineme and Audio) extracted over the test set of FICS dataset
+│   │   ├── FICS_train_files.zip      # Features (Action Unit, Kineme and Audio) extracted over the train set of FICS dataset
+│   │   ├── FICS_val_files.zip        # Features (Action Unit, Kineme and Audio) extracted over the validation set of FICS dataset
+│   ├── MIT_dataset    
+│   │   ├── MIT_AU_features.zip       # Action Unit features extracted over all files of the MIT dataset
+│   │   ├── MIT_kineme_features.zip   # Kineme representation for the head pose values over the MIT dataset
+├── Presentation         
+│   ├── Explainable_Human_Traits_Prediction.pdf        
 
 
 ## Related Links:
