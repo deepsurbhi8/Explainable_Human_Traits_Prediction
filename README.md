@@ -24,7 +24,7 @@ We explore the efficacy of multimodal behavioral cues for explainable prediction
 │   └── LSTM_arch.pdf                    # Trimodal feature fusion architecture
 ├── Codes         
 │   ├── Bimodal Fusion                   # Bimodal implementation of different combination of features (AU, Kineme and Audio features)        
-│   │   ├── Classification_Feature_au_kin_VL_MIT.py  # (Eg: contains the code to implement video-level classification appraoch over the MIT dataset using AU and Kineme features using Feature-level fusion)
+│   │   ├── Classification_Feature_au_kin_VL_MIT.py  # (Eg: contains the code to implement video-level classification appraoch over the MIT dataset using AU and Kineme matrices using Feature fusion)
 │   ├── Feature Extraction               
 │   │   ├── Action_units_data_prep.py    # Code to create Action Unit data matrix from the openface extracted au files
 │   │   ├── Audio_chunk_formation.py     # Code to create chunks from the Audio data matrix 
