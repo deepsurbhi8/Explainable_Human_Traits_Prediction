@@ -14,6 +14,8 @@ We explore the efficacy of multimodal behavioral cues for explainable prediction
 
 **Requirements** -- This code was tested on Python 3.8, Tensorflow 2.7 and Keras 2.7. It is recommended to use the appropraite versions of each library to implement the code.
 
+**Dataset Features** -- All the openface and librosa features for both the datasets are available at the following link: (https://drive.google.com/drive/folders/1gyPFH2kSGEHgpNxiGDVTV2w6eaN0wqsU?usp=sharing)
+
 ## Repository Structure:
 <pre>
 <code>
